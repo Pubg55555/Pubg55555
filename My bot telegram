@@ -1,0 +1,218 @@
+### Hi there 👋
+
+<!--
+**Pubg55555/Pubg55555** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+
+Here are some ideas to get you started:
+
+- 🔭 I’m currently working on ...
+- 🌱 I’m currently learning ...
+- 👯 I’m looking to collaborate on ...
+- 🤔 I’m looking for help with ...
+- 💬 Ask me about ...
+- 📫 How to reach me: ...
+- 😄 Pronouns: ...
+- ⚡ Fun fact: ...
+-->
+from http.server import HTTPServer, BaseHTTPRequestHandler
+
+
+class MyHandler(BaseHTTPRequestHandler):
+
+  def do_GET(self):
+    try:
+      with open('templates/index.html', 'r') as f:
+        content = f.read()
+      self.send_response(200)
+      self.send_header('Content-type', 'text/html')
+      self.end_headers()
+      self.wfile.write(bytes(content, 'utf8'))
+    except:
+      self.send_response(404)
+      self.send_header('Content-type', 'text/html')
+      self.end_headers()
+      self.wfile.write(b'404: File not found')
+
+
+httpd = HTTPServer(('', 8000), MyHandler)
+httpd.serve_forever()
+import telegram
+from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
+
+# Create an updater object
+updater = Updater(token='6125692974:AAFZZl2ZIGrUfkKZO0VSHuHxu43Bml1Z8bQ',
+                  use_context=True)
+
+
+# Define the function for the /start command
+def start(update, context):
+  context.bot.send_message(chat_id=update.effective_chat.id,
+                           text="Welcome to my bot!")
+
+
+# Define the function for the /withdraw command
+def withdraw(update, context):
+  amount = context.args[0]
+  address = context.args[1]
+  context.bot.send_message(chat_id="@binencid",
+                           text=f"Withdrawal request: {amount} to {address}")
+
+
+# Define the function for the /broadcast command
+def broadcast(update, context):
+  message = context.args[0]
+  context.bot.send_message(chat_id=update.effective_chat.id, text=message)
+
+
+# Define the function for the /wallet command
+def wallet(update, context):
+  wallet_address = "TREwoCgPKjDQ8DZNjne81ukbw3JHVMahV5"
+  context.bot.send_message(chat_id=update.effective_chat.id,
+                           text=wallet_address)
+
+
+# Define the function for the /account command
+def account(update, context):
+  balance = "BALANCE_HERE"
+  context.bot.send_message(chat_id=update.effective_chat.id,
+                           text=f"Your balance is {balance} TRX")
+
+
+# Define the function for the /invite command
+def invite(update, context):
+  invite_link = "INVITE_LINK_HERE"
+  context.bot.send_message(chat_id=update.effective_chat.id, text=invite_link)
+
+
+# Define the function for the /owner command
+def owner(update, context):
+  owner_id = "OWNER_ID_HERE"
+  context.bot.send_message(chat_id=owner_id,
+                           text="Message from bot user: " +
+                           update.message.text)
+
+
+# Define the function for the inline buttons
+def button(update, context):
+  query = update.callback_query
+  query.answer()
+  if query.data == "increase":
+    # Code for increasing amount goes here
+    pass
+  elif query.data == "decrease":
+    # Code for decreasing amount goes here
+    pass
+
+
+# Create handlers for each command
+start_handler = CommandHandler('start', start)
+withdraw_handler = CommandHandler('withdraw', withdraw, pass_args=True)
+broadcast_handler = CommandHandler('broadcast', broadcast, pass_args=True)
+wallet_handler = CommandHandler('wallet', wallet)
+account_handler = CommandHandler('account', account)
+invite_handler = CommandHandler('invite', invite)
+owner_handler = CommandHandler('owner', owner)
+button_handler = CallbackQueryHandler(button)
+
+# Create an inline keyboard with two buttons
+reply_markup = telegram.InlineKeyboardMarkup([[
+  telegram.InlineKeyboardButton("Increase", callback_data="increase"),
+  telegram.InlineKeyboardButton("Decrease", callback_data="decrease")
+]])
+
+# Add the handlers to the updater object
+updater.dispatcher.add_handler(start_handler)
+updater.dispatcher.add_handler(withdraw_handler)
+updater.dispatcher.add_handler(broadcast_handler)
+updater.dispatcher.add_handler(wallet_handler)
+updater.dispatcher.add_handler(account_handler)
+updater.dispatcher.add_handler(invite_handler)
+updater.dispatcher.add_handler(owner_handler)
+updater.dispatcher.add_handler(button_handler)
+
+# Start the bot
+updater.start_polling()
+
+# Run the bot until you press Ctrl-C or
+import telegram
+from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
+
+# Create an updater object
+updater = Updater(token='6125692974:AAHZSIGc9sbkzzQ_tIAeu0IzcRZQMaondH0', use_context=True)
+
+# Define the function for the /start command
+def start(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Welcome to my bot!")
+
+# Define the function for the /withdraw command
+def withdraw(update, context):
+    amount = context.args[0]
+    address = context.args[1]
+    context.bot.send_message(chat_id="@binencid", text=f"Withdrawal request: {amount} to {address}")
+
+# Define the function for the /broadcast command
+def broadcast(update, context):
+    message = context.args[0]
+    context.bot.send_message(chat_id=update.effective_chat.id, text=message)
+
+# Define the function for the /wallet command
+def wallet(update, context):
+    wallet_address = "TREwoCgPKjDQ8DZNjne81ukbw3JHVMahV5"
+    context.bot.send_message(chat_id=update.effective_chat.id, text=wallet_address)
+
+# Define the function for the /account command
+def account(update, context):
+    balance = "100"  # Replace with the actual balance amount
+    context.bot.send_message(chat_id=update.effective_chat.id, text=f"Your balance is {balance} TRX")
+
+# Define the function for the /invite command
+def invite(update, context):
+    invite_link = "INVITE_LINK_HERE"
+    context.bot.send_message(chat_id=update.effective_chat.id, text=invite_link)
+
+# Define the function for the /owner command
+def owner(update, context):
+    owner_id = "OWNER_ID_HERE"
+    context.bot.send_message(chat_id=owner_id, text="Message from bot user: " + update.message.text)
+
+# Define the function for the inline buttons
+def button(update, context):
+    query = update.callback_query
+    query.answer()
+    if query.data == "increase":
+        # Code for increasing amount goes here
+        pass
+    elif query.data == "decrease":
+        # Code for decreasing amount goes here
+        pass
+
+# Create handlers for each command
+start_handler = CommandHandler('start', start)
+withdraw_handler = CommandHandler('withdraw', withdraw, pass_args=True)
+broadcast_handler = CommandHandler('broadcast', broadcast, pass_args=True)
+wallet_handler = CommandHandler('wallet', wallet)
+account_handler = CommandHandler('account', account)
+invite_handler = CommandHandler('invite', invite)
+owner_handler = CommandHandler('owner', owner)
+button_handler = CallbackQueryHandler(button)
+
+# Create an inline keyboard with two buttons
+reply_markup = telegram.InlineKeyboardMarkup([
+    [telegram.InlineKeyboardButton("Increase", callback_data="increase"), telegram.InlineKeyboardButton("Decrease", callback_data="decrease")]
+])
+
+# Add the handlers to the updater object
+updater.dispatcher.add_handler(start_handler)
+updater.dispatcher.add_handler(withdraw_handler)
+updater.dispatcher.add_handler(broadcast_handler)
+updater.dispatcher.add_handler(wallet_handler)
+updater.dispatcher.add_handler(account_handler)
+updater.dispatcher.add_handler(invite_handler)
+updater.dispatcher.add_handler(owner_handler)
+updater.dispatcher.add_handler(button_handler)
+
+# Start the bot
+updater.start_polling()
+
+# Run the bot until you press Ctrl-C or the process receives SIGINT, SIGTERM or SIGABRT
+updater.idle()
